@@ -1,0 +1,77 @@
+$navHeight: 100px;
+
+body {
+	background-color: #dfecf2;
+	margin: 0;
+}
+nav {
+	height: $navHeight;
+	background-color: #b0cdd8;
+	border-bottom: #7ea7b7 2px solid;
+}
+#main {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	//width: 100%;
+	//height: 100%;
+	flex-basis: auto;
+}
+#main-inner {
+	min-width: 100px;
+	min-height: 100px;
+	border: black 1px solid;
+	display: flex;
+	flex-direction: column;
+}
+
+.square-row {
+	display: flex;
+	flex-direction: row;
+}
+
+$dotDiameter: 25px;
+.dot {
+	height: $dotDiameter;
+	width: $dotDiameter;
+	background-color: #fff;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+$rowMargin: 5px;
+.row-cont {
+	margin: 0 $rowMargin 0 $rowMargin;
+}
+
+$lineHeight: 100px;
+$lineWidth: 10px;
+.line {
+	background-color: #fff;
+	border: 0;
+}
+.vline {
+	height: $lineHeight;
+	width: $lineWidth;
+	margin-top: $rowMargin;
+	margin-left: ($dotDiameter - $lineWidth)/2;
+	margin-right: ($dotDiameter - $lineWidth)/2;
+}
+.hline {
+	width: $lineHeight;
+	height: $lineWidth;
+	margin-top: ($dotDiameter - $lineWidth)/2;
+	margin-bottom: ($dotDiameter - $lineWidth)/2;
+}
+
+.square-row {
+	margin-bottom: $rowMargin;
+	margin-top: $rowMargin;
+}
+
+.dot,
+.line {
+	&:hover {
+		background-color: #f00;
+	}
+}

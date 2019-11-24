@@ -1,0 +1,90 @@
+body {
+  background-color: #dfecf2;
+  margin: 0;
+}
+
+nav {
+  height: 100px;
+  background-color: #b0cdd8;
+  border-bottom: #7ea7b7 2px solid;
+}
+
+#main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-preferred-size: auto;
+      flex-basis: auto;
+}
+
+#main-inner {
+  min-width: 100px;
+  min-height: 100px;
+  border: black 1px solid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.square-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.row-cont {
+  margin: 0 5px 0 5px;
+}
+
+.line {
+  background-color: #fff;
+  border: 0;
+}
+
+.vline {
+  height: 100px;
+  width: 10px;
+  margin-top: 5px;
+  margin-left: 7.5px;
+  margin-right: 7.5px;
+}
+
+.hline {
+  width: 100px;
+  height: 10px;
+  margin-top: 7.5px;
+  margin-bottom: 7.5px;
+}
+
+.square-row {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.dot:hover,
+.line:hover {
+  background-color: #f00;
+}
+/*# sourceMappingURL=main.css.map */
