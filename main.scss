@@ -1,4 +1,7 @@
 $navHeight: 100px;
+$lineHeight: 100px;
+$lineWidth: 10px;
+$lineTransTime: 0.75s;
 
 body {
 	background-color: #dfecf2;
@@ -37,6 +40,7 @@ $dotDiameter: 25px;
 	background-color: #fff;
 	border-radius: 50%;
 	display: inline-block;
+	transition: $lineTransTime ease-out;
 }
 
 $rowMargin: 5px;
@@ -44,11 +48,10 @@ $rowMargin: 5px;
 	margin: 0 $rowMargin 0 $rowMargin;
 }
 
-$lineHeight: 100px;
-$lineWidth: 10px;
 .line {
 	background-color: #fff;
 	border: 0;
+	transition: $lineTransTime ease-out;
 }
 .vline {
 	height: $lineHeight;
@@ -60,8 +63,28 @@ $lineWidth: 10px;
 .hline {
 	width: $lineHeight;
 	height: $lineWidth;
-	margin-top: ($dotDiameter - $lineWidth)/2;
-	margin-bottom: ($dotDiameter - $lineWidth)/2;
+	//margin-top: ($dotDiameter - $lineWidth)/2;
+	//margin-bottom: ($dotDiameter - $lineWidth)/2;
+}
+
+.vlineOut,
+.hlineOut {
+	background-color: #b0cdd8;
+	border-radius: 5px;
+}
+
+.hlineOut {
+	height: $dotDiameter - ($dotDiameter - $lineWidth);
+	margin-top: 0;
+	padding-top: ($dotDiameter - $lineWidth)/2;
+	padding-bottom: ($dotDiameter - $lineWidth)/2;
+}
+
+.lineOut {
+	transition: 0.25s ease-out;
+	&:hover {
+		background-color: #31677c;
+	}
 }
 
 .square-row {
@@ -69,9 +92,6 @@ $lineWidth: 10px;
 	margin-top: $rowMargin;
 }
 
-.dot,
-.line {
-	&:hover {
-		background-color: #f00;
-	}
+.clicked {
+	background-color: #31677c;
 }

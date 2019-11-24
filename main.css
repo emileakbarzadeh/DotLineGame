@@ -52,6 +52,8 @@ nav {
   background-color: #fff;
   border-radius: 50%;
   display: inline-block;
+  -webkit-transition: 0.75s ease-out;
+  transition: 0.75s ease-out;
 }
 
 .row-cont {
@@ -61,6 +63,8 @@ nav {
 .line {
   background-color: #fff;
   border: 0;
+  -webkit-transition: 0.75s ease-out;
+  transition: 0.75s ease-out;
 }
 
 .vline {
@@ -74,8 +78,28 @@ nav {
 .hline {
   width: 100px;
   height: 10px;
-  margin-top: 7.5px;
-  margin-bottom: 7.5px;
+}
+
+.vlineOut,
+.hlineOut {
+  background-color: #b0cdd8;
+  border-radius: 5px;
+}
+
+.hlineOut {
+  height: 10px;
+  margin-top: 0;
+  padding-top: 7.5px;
+  padding-bottom: 7.5px;
+}
+
+.lineOut {
+  -webkit-transition: 0.25s ease-out;
+  transition: 0.25s ease-out;
+}
+
+.lineOut:hover {
+  background-color: #31677c;
 }
 
 .square-row {
@@ -83,8 +107,7 @@ nav {
   margin-top: 5px;
 }
 
-.dot:hover,
-.line:hover {
-  background-color: #f00;
+.clicked {
+  background-color: #31677c;
 }
 /*# sourceMappingURL=main.css.map */
