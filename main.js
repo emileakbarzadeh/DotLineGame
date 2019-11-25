@@ -7,9 +7,17 @@ let outputBox = document.getElementById("outputBox");
 let currentPlayerBox = document.getElementById("current-player");
 
 let scores = [0, 0];
+let clickList = [];
 
 let currentPlayerTurn = 0;
 let playerCount = 2;
+
+let playerAddresses = [];
+let peerArray = [];
+let connArray = [];
+let currentID = "";
+
+let intervalID = setInterval(refreshClickData, 1000);
 
 function populateGrid() {
 	mainInner.innerHTML = "";
@@ -69,12 +77,22 @@ function populateGrid() {
 	});
 }
 
+function generateID() {
+	currentID = dimension + "-" + playerCount + "-" + UUIDGEN();
+	let idBox = document.getElementById("current-id");
+	idBox.innerText = currentID;
+}
+
 function handleClick(elem) {
 	//Get line element
 	let lineElem = elem.getElementsByClassName("line")[0];
 
 	//check for already selected
 	if (elemIsSelected(lineElem)) return;
+	//add to click list
+	clickList.push(lineElem.getAttribute("value"));
+	//send click
+	sendClicks();
 
 	//Add class
 	lineElem.classList.add("clicked");
@@ -94,7 +112,44 @@ function handleClick(elem) {
 	//next turn
 	if (increaseScoreBy == 0) nextTurn();
 }
+////////////////////////////////////////////////////////////
+//////Peeerr////////////////////////////////////////////////
+function sendClicks() {
+	let clickListString = JSON.stringify(clickList);
 
+	connArray.forEach(conn => {
+		conn.send(clickListString);
+	});
+}
+
+function refreshClickData() {}
+
+function connectToPeer() {
+	peerArray.push(new Peer(currentID, { config: { debug: 2 } }));
+	let peerid = document.getElementById("peer-id");
+
+	let conn = peerArray[0].connect(peerid);
+	// on open will be launch when you successfully connect to PeerServer
+	conn.on("open", function() {
+		// here you have conn.id
+		conn.send("hi! the peer worked");
+	});
+	peerArray[0].on("connection", function(conn) {
+		conn.on("data", recieveClicks(data));
+	});
+	connArray.push(conn);
+}
+
+function recieveClicks(data) {
+	let clickArray = JSON.parse(data);
+	clickArray.forEach(clickVal => {
+		let clickElem = document.querySelector("div[value=" + clickVal + "]");
+		handleClick(clickElem);
+	});
+}
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
 function checkWin() {
 	let total = 0;
 	scores.forEach(score => {
@@ -192,7 +247,10 @@ function coordIsSelected(type, xCoord, yCoord) {
 
 //Returns the element xcoord, ycoord and type
 function getElemCoordsType(elem) {
-	let valueData = elem.getAttribute("value");
+	return parseCoordsType(elem.getAttribute("value"));
+}
+
+function parseCoordsType(valueData) {
 	let type = valueData.substring(0, 1);
 	let xCoord = Number(valueData.split("-")[1]);
 	let yCoord = Number(valueData.split("-")[0].substring(1));
@@ -299,4 +357,38 @@ function updateScores() {
 		let scoreBox = document.getElementById("score".concat(i + 1));
 		scoreBox.innerText = scores[i];
 	}
+}
+
+//Generate UUID
+var lut = [];
+for (var i = 0; i < 256; i++) {
+	lut[i] = (i < 16 ? "0" : "") + i.toString(16);
+}
+function UUIDGEN() {
+	var d0 = (Math.random() * 0xffffffff) | 0;
+	var d1 = (Math.random() * 0xffffffff) | 0;
+	var d2 = (Math.random() * 0xffffffff) | 0;
+	var d3 = (Math.random() * 0xffffffff) | 0;
+	return (
+		lut[d0 & 0xff] +
+		lut[(d0 >> 8) & 0xff] +
+		lut[(d0 >> 16) & 0xff] +
+		lut[(d0 >> 24) & 0xff] +
+		"-" +
+		lut[d1 & 0xff] +
+		lut[(d1 >> 8) & 0xff] +
+		"-" +
+		lut[((d1 >> 16) & 0x0f) | 0x40] +
+		lut[(d1 >> 24) & 0xff] +
+		"-" +
+		lut[(d2 & 0x3f) | 0x80] +
+		lut[(d2 >> 8) & 0xff] +
+		"-" +
+		lut[(d2 >> 16) & 0xff] +
+		lut[(d2 >> 24) & 0xff] +
+		lut[d3 & 0xff] +
+		lut[(d3 >> 8) & 0xff] +
+		lut[(d3 >> 16) & 0xff] +
+		lut[(d3 >> 24) & 0xff]
+	);
 }

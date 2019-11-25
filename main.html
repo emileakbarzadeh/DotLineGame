@@ -11,7 +11,7 @@
 		<link rel="stylesheet" href="main.css?v=1.0" />
 	</head>
 
-	<body onload="populateGrid()">
+	<body onload="populateGrid(); generateID()">
 		<div id="container">
 			<nav><div id="outputBox"></div></nav>
 			<div id="main">
@@ -29,8 +29,14 @@
 						<h4 class="score-name" id="score-name2">Player 2</h4>
 					</div>
 				</div>
+				<div id="connection-container">
+					<h3 id="current-id"></h3>
+					<input id="peer-id" />
+					<button onclick="connectToPeer()">Connect to peer</button>
+				</div>
 			</div>
 		</div>
 		<script src="main.js"></script>
+		<script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
 	</body>
 </html>
