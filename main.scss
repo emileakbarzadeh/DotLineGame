@@ -154,10 +154,63 @@ $rowMargin: 5px;
 	font-size: 1.5em;
 	font-weight: 400;
 	line-height: 1em;
+	width: 110px;
+	text-align: center;
 }
 
 #current-player {
 	font-weight: 400;
 	font-size: 1.3em;
+	margin-top: 20px;
+}
+
+#connect-cont {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	color: white;
+	margin-top: 20px;
+
+	transition: 0.25s ease-out;
+	h3 {
+		font-weight: 200;
+		margin: 0;
+	}
+}
+
+.con-button {
+	padding: 15px 40px 15px 40px;
+	background-color: #31677c;
+	transition: 0.25s ease-out;
+	cursor: pointer;
+	&:hover {
+		background-color: #528396;
+	}
+}
+#join-button {
+	margin-left: 1px;
+}
+#host-button {
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
+#local-button {
+	margin-left: 1px;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+}
+#con-button {
+	color: white;
+	margin-top: 20px;
+	border-radius: 10px;
+	text-align: center;
+}
+h4.host-inf {
+	font-weight: 300;
+	text-align: center;
+}
+
+#peer-id {
+	width: 300px;
 	margin-top: 20px;
 }

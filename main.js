@@ -1,6 +1,6 @@
 "use strict";
 
-const dimension = 3;
+let dimension = 3;
 
 let mainInner = document.getElementById("main-inner");
 let outputBox = document.getElementById("outputBox");
@@ -13,9 +13,12 @@ let currentPlayerTurn = 0;
 let playerCount = 2;
 
 let playerAddresses = [];
-let peerArray = [];
+let peer;
 let connArray = [];
 let currentID = "";
+let isMultiplayer = false;
+
+let playerNumber;
 
 let intervalID = setInterval(refreshClickData, 1000);
 
@@ -77,18 +80,13 @@ function populateGrid() {
 	});
 }
 
-function generateID() {
-	currentID = dimension + "-" + playerCount + "-" + UUIDGEN();
-	let idBox = document.getElementById("current-id");
-	idBox.innerText = currentID;
-}
-
 function handleClick(elem) {
 	//Get line element
 	let lineElem = elem.getElementsByClassName("line")[0];
 
 	//check for already selected
 	if (elemIsSelected(lineElem)) return;
+	if (currentPlayerTurn != playerNumber && isMultiplayer) return;
 	//add to click list
 	clickList.push(elem.getAttribute("value"));
 	//send click
@@ -97,8 +95,6 @@ function handleClick(elem) {
 	//Add class
 	lineElem.classList.add("clicked");
 	elem.classList.add("clicked");
-
-	outputBox.innerText = elem.getAttribute("value");
 
 	setDotColours(elem);
 	//returns amount of boxes filled
@@ -114,6 +110,20 @@ function handleClick(elem) {
 }
 ////////////////////////////////////////////////////////////
 //////Peeerr////////////////////////////////////////////////
+function generateID() {
+	currentID = dimension + "-" + playerCount + "-" + UUIDGEN();
+	let idBox = document.getElementById("current-id");
+	idBox.innerText = currentID;
+
+	peer = new Peer(currentID, { debug: 3 });
+	peer.on("connection", function(conn) {
+		conn.on("data", function(data) {
+			recieveClicks(data);
+		});
+		console.log(conn);
+		connArray[0] = conn;
+	});
+}
 function sendClicks() {
 	let clickListString = JSON.stringify(clickList);
 
@@ -125,20 +135,20 @@ function sendClicks() {
 function refreshClickData() {}
 
 function connectToPeer() {
-	peerArray[0] = new Peer(currentID);
 	let peerid = document.getElementById("peer-id").value;
 
-	let conn = peerArray[0].connect(peerid);
+	dimension = Number(peerid.split("-")[0]);
+	populateGrid();
+
+	connArray[0] = peer.connect(peerid);
 	// on open will be launch when you successfully connect to PeerServer
-	conn.on("open", function() {
+	connArray[0].on("open", function() {
 		// here you have conn.id
-		conn.send("hi! the peer worked");
+		console.log("open");
+		connArray[0].on("data", function(data) {
+			recieveClicks(data);
+		});
 	});
-	peerArray[0].on("connection", function(conn) {
-		conn.on("data", recieveClicks(data));
-		console.log(conn);
-	});
-	connArray[0] = conn;
 }
 
 function recieveClicks(data) {
@@ -151,6 +161,45 @@ function recieveClicks(data) {
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
+function showCode() {
+	generateID();
+	Array.from(document.getElementsByClassName("host-inf")).forEach(el => {
+		el.style.display = "block";
+	});
+
+	playerNumber = 0;
+	setupSpace();
+}
+
+function showJoin() {
+	Array.from(document.getElementsByClassName("join-inf")).forEach(el => {
+		el.style.display = "block";
+	});
+	playerNumber = 1;
+	setupSpace();
+}
+
+function localCreate() {
+	isMultiplayer = false;
+	playerNumber = 0;
+	setupSpace();
+}
+
+function setupSpace() {
+	document.getElementById("main-inner").style.display = "flex";
+	document.getElementById("current-player").innerText = "Please Wait";
+	document.getElementById("connect-cont").style.display = "none";
+
+	if (playerNumber == 0) {
+		document.getElementById("score-name1").innerText = "You";
+		document.getElementById("score-name2").innerText = "Opponent";
+	} else if (playerNumber == 1) {
+		document.getElementById("score-name1").innerText = "Opponent";
+		document.getElementById("score-name2").innerText = "You";
+	}
+	updateScores();
+}
+
 function checkWin() {
 	let total = 0;
 	scores.forEach(score => {
@@ -347,10 +396,11 @@ function nextTurn() {
 	currentPlayerTurn++;
 	if (currentPlayerTurn >= playerCount) currentPlayerTurn = 0;
 
-	currentPlayerBox.innerText = "Player ".concat(
-		currentPlayerTurn + 1,
-		"'s turn"
-	);
+	if (playerNumber == currentPlayerTurn) {
+		currentPlayerBox.innerText = "Your turn";
+	} else {
+		currentPlayerBox.innerText = "Opponent's turn";
+	}
 }
 
 function updateScores() {

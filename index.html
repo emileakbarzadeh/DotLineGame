@@ -11,32 +11,55 @@
 		<link rel="stylesheet" href="main.css?v=1.0" />
 	</head>
 
-	<body onload="populateGrid(); generateID()">
+	<body onload="populateGrid()">
 		<div id="container">
-			<nav><div id="outputBox"></div></nav>
+			<nav></nav>
 			<div id="main">
-				<div id="main-inner"></div>
+				<div id="main-inner" style="display: none;"></div>
 				<div id="score-container">
 					<div class="score-box" id="score-box1">
-						<h3 class="score" id="score1">0</h3>
-						<h4 class="score-name" id="score-name1">Player 1</h4>
+						<h3 class="score" id="score1"></h3>
+						<h4 class="score-name" id="score-name1"></h4>
 					</div>
 					<div id="current-player-box">
-						<h4 id="current-player">Player 1's turn</h4>
+						<h4 id="current-player">Please select an option</h4>
 					</div>
 					<div class="score-box" id="score-box2">
-						<h3 class="score" id="score2">0</h3>
-						<h4 class="score-name" id="score-name2">Player 2</h4>
+						<h3 class="score" id="score2"></h3>
+						<h4 class="score-name" id="score-name2"></h4>
 					</div>
 				</div>
 				<div id="connection-container">
-					<h3 id="current-id"></h3>
-					<input id="peer-id" />
-					<button onclick="connectToPeer()">Connect to peer</button>
+					<div id="connect-cont">
+						<div id="host-button" class="con-button" onclick="showCode()">
+							<h3>Host</h3>
+						</div>
+						<div id="join-button" class="con-button" onclick="showJoin()">
+							<h3>Join</h3>
+						</div>
+						<div id="local-button" class="con-button" onclick="localCreate()">
+							<h3>Local</h3>
+						</div>
+					</div>
+
+					<h4 class="host-inf" style="display: none;">
+						Share the code below with your opponent
+					</h4>
+					<h3 id="current-id" class="host-inf" style="display: none;"></h3>
+					<input id="peer-id" style="display: none;" class="join-inf" />
+					<div
+						id="con-button"
+						onclick="connectToPeer()"
+						style="display: none;"
+						class="join-inf con-button"
+					>
+						Connect to opponent
+					</div>
 				</div>
 			</div>
 		</div>
 		<script src="main.js"></script>
-		<script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+		<script src="peerjs.min.js"></script>
+		<!--<script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>-->
 	</body>
 </html>
