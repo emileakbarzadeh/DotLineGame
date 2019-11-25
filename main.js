@@ -86,8 +86,9 @@ function handleClick(elem, forceClicks) {
 
 	//check for already selected
 	if (elemIsSelected(lineElem)) return;
-	if ((currentPlayerTurn != playerNumber && isMultiplayer) || !forceClicks)
-		return;
+	if (!forceClicks) {
+		if (currentPlayerTurn != playerNumber && isMultiplayer) return;
+	}
 	//add to click list
 	clickList.push(elem.getAttribute("value"));
 	//send click
