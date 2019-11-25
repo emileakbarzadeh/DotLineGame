@@ -75,18 +75,19 @@ function populateGrid() {
 	let lineConts = Array.from(document.getElementsByClassName("lineOut"));
 	lineConts.forEach(element => {
 		element.addEventListener("click", function() {
-			handleClick(element);
+			handleClick(element, true);
 		});
 	});
 }
 
-function handleClick(elem) {
+function handleClick(elem, forceClicks) {
 	//Get line element
 	let lineElem = elem.getElementsByClassName("line")[0];
 
 	//check for already selected
 	if (elemIsSelected(lineElem)) return;
-	if (currentPlayerTurn != playerNumber && isMultiplayer) return;
+	if (currentPlayerTurn != playerNumber && isMultiplayer && !forceClicks)
+		return;
 	//add to click list
 	clickList.push(elem.getAttribute("value"));
 	//send click
@@ -155,7 +156,7 @@ function recieveClicks(data) {
 	let clickArray = JSON.parse(data);
 	clickArray.forEach(clickVal => {
 		let clickElem = document.querySelector("div[value=" + clickVal + "]");
-		handleClick(clickElem);
+		handleClick(clickElem, true);
 	});
 }
 ////////////////////////////////////////////////////////////
