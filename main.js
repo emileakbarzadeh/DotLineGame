@@ -86,7 +86,7 @@ function handleClick(elem, forceClicks) {
 
 	//check for already selected
 	if (elemIsSelected(lineElem)) return;
-	if (currentPlayerTurn != playerNumber && isMultiplayer && !forceClicks)
+	if ((currentPlayerTurn != playerNumber && isMultiplayer) || !forceClicks)
 		return;
 	//add to click list
 	clickList.push(elem.getAttribute("value"));
@@ -170,6 +170,7 @@ function showCode() {
 
 	playerNumber = 0;
 	setupSpace();
+	populateGrid();
 }
 
 function showJoin() {
