@@ -75,7 +75,7 @@ function populateGrid() {
 	let lineConts = Array.from(document.getElementsByClassName("lineOut"));
 	lineConts.forEach(element => {
 		element.addEventListener("click", function() {
-			handleClick(element, true);
+			handleClick(element, false);
 		});
 	});
 }
