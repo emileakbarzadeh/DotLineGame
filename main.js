@@ -16,7 +16,7 @@ let playerAddresses = [];
 let peer;
 let connArray = [];
 let currentID = "";
-let isMultiplayer = false;
+let isMultiplayer = true;
 
 let playerNumber;
 
@@ -172,6 +172,7 @@ function showCode() {
 }
 
 function showJoin() {
+	generateID();
 	Array.from(document.getElementsByClassName("join-inf")).forEach(el => {
 		el.style.display = "block";
 	});
