@@ -122,9 +122,14 @@ function generateID() {
 		conn.on("data", function(data) {
 			recieveClicks(data);
 		});
-		console.log(conn);
+		prepareHost();
 		connArray[0] = conn;
 	});
+}
+
+function prepareHost() {
+	document.getElementById("current-player").innerText = "Your turn";
+	document.getElementById("connection-container").style.display = "none";
 }
 function sendClicks() {
 	let clickListString = JSON.stringify(clickList);
@@ -145,8 +150,10 @@ function connectToPeer() {
 	connArray[0] = peer.connect(peerid);
 	// on open will be launch when you successfully connect to PeerServer
 	connArray[0].on("open", function() {
-		// here you have conn.id
-		console.log("open");
+		// Joined game
+		Array.from(document.getElementsByClassName("join-inf")).forEach(el => {
+			el.style.display = "none";
+		});
 		connArray[0].on("data", function(data) {
 			recieveClicks(data);
 		});
@@ -172,6 +179,7 @@ function showCode() {
 	playerNumber = 0;
 	setupSpace();
 	populateGrid();
+	document.getElementById("dimen-cont").style.display = "flex";
 }
 
 function showJoin() {
@@ -185,7 +193,7 @@ function showJoin() {
 
 function localCreate() {
 	isMultiplayer = false;
-	playerNumber = 0;
+	playerNumber = -1;
 	setupSpace();
 }
 
@@ -200,6 +208,11 @@ function setupSpace() {
 	} else if (playerNumber == 1) {
 		document.getElementById("score-name1").innerText = "Opponent";
 		document.getElementById("score-name2").innerText = "You";
+	} else if (playerNumber == -1) {
+		document.getElementById("score-name1").innerText = "Player 1";
+		document.getElementById("score-name2").innerText = "Player 2";
+		document.getElementById("current-player").innerText = "Player 1's turn";
+		playerNumber = 0;
 	}
 	updateScores();
 }
@@ -229,6 +242,22 @@ function setWin() {
 		currentPlayerBox.innerText =
 			"Congratulations to the winner, Player " + (winIndex + 1);
 	}
+}
+function incrDim() {
+	dimension =
+		Number(document.getElementById("dim-num").childNodes[1].value) + 1;
+	document.getElementById("dim-num").childNodes[1].value = dimension;
+
+	populateGrid();
+	generateID();
+}
+function decrDim() {
+	dimension =
+		Number(document.getElementById("dim-num").childNodes[1].value) - 1;
+	document.getElementById("dim-num").childNodes[1].value = dimension;
+
+	populateGrid();
+	generateID();
 }
 
 function setDotColours(elem) {
