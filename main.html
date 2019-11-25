@@ -13,9 +13,22 @@
 
 	<body onload="populateGrid()">
 		<div id="container">
-			<nav></nav>
+			<nav><div id="outputBox"></div></nav>
 			<div id="main">
 				<div id="main-inner"></div>
+				<div id="score-container">
+					<div class="score-box" id="score-box1">
+						<h3 class="score" id="score1">0</h3>
+						<h4 class="score-name" id="score-name1">Player 1</h4>
+					</div>
+					<div id="current-player-box">
+						<h4 id="current-player">Player 1's turn</h4>
+					</div>
+					<div class="score-box" id="score-box2">
+						<h3 class="score" id="score2">0</h3>
+						<h4 class="score-name" id="score-name2">Player 2</h4>
+					</div>
+				</div>
 			</div>
 		</div>
 		<script src="main.js"></script>
