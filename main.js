@@ -90,7 +90,7 @@ function handleClick(elem) {
 	//check for already selected
 	if (elemIsSelected(lineElem)) return;
 	//add to click list
-	clickList.push(lineElem.getAttribute("value"));
+	clickList.push(elem.getAttribute("value"));
 	//send click
 	sendClicks();
 
@@ -125,7 +125,7 @@ function sendClicks() {
 function refreshClickData() {}
 
 function connectToPeer() {
-	peerArray.push(new Peer(currentID, { config: { debug: 3 } }));
+	peerArray[0] = new Peer(currentID);
 	let peerid = document.getElementById("peer-id").value;
 
 	let conn = peerArray[0].connect(peerid);
@@ -138,7 +138,7 @@ function connectToPeer() {
 		conn.on("data", recieveClicks(data));
 		console.log(conn);
 	});
-	connArray.push(conn);
+	connArray[0] = conn;
 }
 
 function recieveClicks(data) {
