@@ -125,8 +125,8 @@ function sendClicks() {
 function refreshClickData() {}
 
 function connectToPeer() {
-	peerArray.push(new Peer(currentID, { config: { debug: 2 } }));
-	let peerid = document.getElementById("peer-id");
+	peerArray.push(new Peer(currentID, { config: { debug: 3 } }));
+	let peerid = document.getElementById("peer-id").valueText;
 
 	let conn = peerArray[0].connect(peerid);
 	// on open will be launch when you successfully connect to PeerServer
@@ -136,6 +136,7 @@ function connectToPeer() {
 	});
 	peerArray[0].on("connection", function(conn) {
 		conn.on("data", recieveClicks(data));
+		console.log(conn);
 	});
 	connArray.push(conn);
 }
