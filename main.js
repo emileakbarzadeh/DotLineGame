@@ -195,6 +195,7 @@ function localCreate() {
 	isMultiplayer = false;
 	playerNumber = -1;
 	setupSpace();
+	document.getElementById("dimen-cont").style.display = "flex";
 }
 
 function setupSpace() {
