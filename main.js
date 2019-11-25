@@ -126,7 +126,7 @@ function refreshClickData() {}
 
 function connectToPeer() {
 	peerArray.push(new Peer(currentID, { config: { debug: 3 } }));
-	let peerid = document.getElementById("peer-id").valueText;
+	let peerid = document.getElementById("peer-id").value;
 
 	let conn = peerArray[0].connect(peerid);
 	// on open will be launch when you successfully connect to PeerServer
