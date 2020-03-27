@@ -1,76 +1,74 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
+<head>
+    <meta charset="utf-8" />
 
-		<title>Dots and Lines by Emile</title>
-		<meta name="description" content="Dots and Lines by Emile" />
-		<meta name="author" content="SitePoint" />
+    <title>Dots and Lines by Emile</title>
+    <meta name="description" content="Dots and Lines by Emile" />
+    <meta name="author" content="SitePoint" />
 
-		<link rel="stylesheet" href="main.css?v=1.0" />
-	</head>
+    <link rel="stylesheet" href="main.css?v=1.0" />
+</head>
 
-	<body onload="populateGrid()">
-		<div id="container">
-			<nav></nav>
-			<div id="main">
-				<div id="main-inner" style="display: none;"></div>
-				<div id="score-container">
-					<div class="score-box" id="score-box1">
-						<h3 class="score" id="score1"></h3>
-						<h4 class="score-name" id="score-name1"></h4>
-					</div>
-					<div id="current-player-box">
-						<h4 id="current-player">Please select an option</h4>
-					</div>
-					<div class="score-box" id="score-box2">
-						<h3 class="score" id="score2"></h3>
-						<h4 class="score-name" id="score-name2"></h4>
-					</div>
-				</div>
-				<div id="connection-container">
-					<div id="connect-cont">
-						<div id="host-button" class="con-button" onclick="showCode()">
-							<h3>Host</h3>
-						</div>
-						<div id="join-button" class="con-button" onclick="showJoin()">
-							<h3>Join</h3>
-						</div>
-						<div id="local-button" class="con-button" onclick="localCreate()">
-							<h3>Local</h3>
-						</div>
-					</div>
+<body onload="populateGrid()">
+    <div id="container">
+        <nav></nav>
+        <div id="main">
+            <div id="main-inner" style="display: none;"></div>
+            <div id="score-container">
+                <div class="score-box" id="score-box1">
+                    <h3 class="score" id="score1"></h3>
+                    <h4 class="score-name" id="score-name1"></h4>
+                </div>
+                <div id="current-player-box">
+                    <h4 id="current-player">Please select an option</h4>
+                </div>
+                <div class="score-box" id="score-box2">
+                    <h3 class="score" id="score2"></h3>
+                    <h4 class="score-name" id="score-name2"></h4>
+                </div>
+            </div>
+            <div id="connection-container">
+                <div id="connect-cont">
+                    <div id="host-button" class="con-button" onclick="showCode()">
+                        <h3>Host</h3>
+                    </div>
+                    <div id="join-button" class="con-button" onclick="showJoin()">
+                        <h3>Join</h3>
+                    </div>
+                    <div id="local-button" class="con-button" onclick="localCreate()">
+                        <h3>Local</h3>
+                    </div>
+                </div>
 
-					<h4 class="host-inf" style="display: none;">
-						Share the code below with your opponent
-					</h4>
-					<h3 id="current-id" class="host-inf" style="display: none;"></h3>
-					<div id="dimen-cont" style="display:none">
-						<div id="dim-min-button" class="dimen-button" onclick="decrDim()">
-							<h3>-</h3>
-						</div>
-						<div id="dim-num">
-							<input value="3" />
-						</div>
-						<div id="dim-plus-button" class="dimen-button" onclick="incrDim()">
-							<h3>+</h3>
-						</div>
-					</div>
-					<input id="peer-id" style="display: none;" class="join-inf" />
-					<div
-						id="con-button"
-						onclick="connectToPeer()"
-						style="display: none;"
-						class="join-inf con-button"
-					>
-						Connect to opponent
-					</div>
-				</div>
-			</div>
-		</div>
-		<script src="main.js"></script>
-		<script src="peerjs.min.js"></script>
-		<!--<script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>-->
-	</body>
+                <h4 class="host-inf" style="display: none;">
+                    Share the code below with your opponent
+                </h4>
+                <h3 id="current-id" class="host-inf" style="display: none;"></h3>
+                <div id="dimen-cont" style="display:none">
+                    <div id="dim-min-button" class="dimen-button" onclick="decrDim()">
+                        <h3>-</h3>
+                    </div>
+                    <div id="dim-num">
+                        <input onchange="manualUpdateDim()" value="3" />
+                    </div>
+                    <div id="dim-plus-button" class="dimen-button" onclick="incrDim()">
+                        <h3>+</h3>
+                    </div>
+                </div>
+                <input id="peer-id" style="display: none;" class="join-inf" />
+                <div id="con-button"
+                     onclick="connectToPeer()"
+                     style="display: none;"
+                     class="join-inf con-button">
+                    Connect to opponent
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    <script src="peerjs.min.js"></script>
+    <!--<script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>-->
+</body>
 </html>
